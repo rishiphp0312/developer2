@@ -36,8 +36,9 @@
 				   <td><?php echo $this->Html->link($communityPost['subject'], array('controller' => 'communities', 'action' => 'allresponse', $communityPost['community_id']));?></td>
 
 				  <td><?php echo $communityPost['details'];?></td>
-				  <td><?php echo '';?></td>
-				  <td></td>
+				  <td><?php echo $communityPost['countLikes'];?></td>
+				  				  <td><?php echo $communityPost['countResponse'];?></td>
+
 				  <td><?php echo $this->Html->link('Post Response', array('controller' => 'communities', 'action' => 'response', $communityPost['community_id']));?></td>
 				</tr>
 			<?php 

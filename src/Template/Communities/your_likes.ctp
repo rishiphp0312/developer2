@@ -27,15 +27,16 @@
 			  
 			<?php 
 			$sNo = 1;
-			foreach ($allPosts as $communityPost):
+			foreach ($myResponse as $communityPost):
 			?>
 				<tr>
 				  <td><?php echo $sNo;?></td>
-				  <td><?php echo $communityPost->subject;?></td>
-				  <td><?php echo $communityPost->details;?></td>
-				  <td><?php echo '';?></td>
-				  <td></td>
-				  <td><?php echo $this->Html->link('Post Respons', array('controller' => 'communities', 'action' => 'response', $communityPost->id));?></td>
+				  <td><?php echo $communityPost['subject'];?></td>
+				  <td><?php echo $communityPost['details'];?></td>
+				  <td><?php echo $communityPost['countLikes'];?></td>
+				  				  <td><?php echo $communityPost['countResponse'];?></td>
+
+				  <td><?php echo $this->Html->link('Post Response', array('controller' => 'communities', 'action' => 'response', $communityPost['community_id']));?></td>
 				</tr>
 			<?php 
 			$sNo++;

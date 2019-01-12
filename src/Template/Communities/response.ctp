@@ -37,7 +37,8 @@ $(function() {
                 <div class="col-sm-9 col-md-9 col-lg-9">
                   	<?php echo $community->subject;?>
 				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				  </br>(Total Like = <?php echo $community->like;?>)
+				  </br>(Total Like = <?php echo $community->like;?>)				  <?php echo $this->Html->link('Like It', array('controller' => 'communities', 'action' => 'addlike', $community->id));?>
+
 				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				  (Total Reply = <?php echo $community->reply;?>)
                 </div>
@@ -57,7 +58,6 @@ $(function() {
               </div>
                <div class="form-group">
                 <div class="col-md-12 text-right">
-                  <button type="submit" class="btn btn-primary">Like</button>
 				  <button type="submit" class="btn btn-primary">Reply</button>
                 </div>
               </div>

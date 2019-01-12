@@ -22,8 +22,10 @@ class CommunitiesController extends AppController
 		//Configure::write('debug', 0);
         $this->session = $this->request->session();
 				 //TableRegistry::get('CommunitiesResponses');
-				 				 $this->loadModel('CommunitiesResponses');
+		$this->loadModel('CommunitiesResponses');
+		$this->loadModel('CommunitiesLikes');
 
+        //$this->viewBuilder()->helpers(['MyHelper']);
 
         $this->loadComponent('Paginator');
         $this->loadComponent('Flash'); // Include the FlashComponent
@@ -38,33 +40,38 @@ class CommunitiesController extends AppController
 
     public function view()
 	{
-		$allPosts = $this->Paginator->paginate($this->Communities->find('all' ));
+		$allPosts = $this->Paginator->paginate($this->Communities->find('all' )->contain(['CommunitiesLikes','CommunitiesResponses']));
+		//pr($allPosts);die;
         $this->set(compact('allPosts'));
 	}
 	
 	public function yourPost()
 	{
 		$allPosts = $this->Paginator->paginate($this->Communities->find('all', [
-					'conditions' => ['Communities.user_id' => $this->Auth->User('id')]]));
+					'conditions' => ['Communities.user_id' => $this->Auth->User('id')]])->contain(['CommunitiesLikes','CommunitiesResponses']));
         $this->set(compact('allPosts'));
 	}
 	
 	public function yourResponses()
 	{
-		/*
-$query = $this->CommunitiesResponses->find();
-$query->select([
-    'count' => $query->func()->count('community_id'),
-    'user_id' => $this->Auth->User('id')
-])
-->group('community_id')
-->having(['count >' => 1]);*/
+	
 	$allPosts = $this->Paginator->paginate($this->CommunitiesResponses->find('all', [
 					'conditions' => ['CommunitiesResponses.user_id' => $this->Auth->User('id')]])->contain(['Communities']))->toArray();
 					$myResponse = [];
+					$cntResp=1;
+					$cntLikes=0;
+					$selectListquery =  $this->CommunitiesLikes->find('list')
+->select(['community_id'])
+        ->where([ 'user_id' => $this->Auth->User('id')])
+        ->toArray();
 					foreach($allPosts  as $value){
 				
-						$myResponse[$value->community_id]=['details'=>$value['community']->details,'subject'=>$value['community']->subject,'community_id'=>$value->community_id];
+						if(isset($selectListquery[$value->community_id]))
+						$cntLikes++;
+					
+						$myResponse[$value->community_id]=['details'=>$value['community']->details,'subject'=>$value['community']->subject,'community_id'=>$value->community_id,'countResponse'=>$cntResp,'countLikes'=>$cntLikes];
+						$cntResp++;
+						
 					}
 					//$allPostsitems = $allPosts->items;
 					//pr($myResponse);die;
@@ -73,15 +80,27 @@ $query->select([
 	
 	public function yourLikes()
 	{
-		$query = $this->Communities->find()->where(['communities.user_id' => $this->Auth->User('id')])->hydrate(false)->join([
-			'table' => 'community_response',
-			'alias' => 'a',
-			'type' => 'LEFT',
-			'conditions' => ['a.community_post_id = communities.id', 'a.likes = 1']
-		 ])->autoFields(true) //selecting all fields from current table
-		   ->select(["a.likes,a.response"]); //selecting some fields from table community_response
-
-		return $query->toArray();
+		$allPosts = $this->Paginator->paginate($this->CommunitiesLikes->find('all', [
+					'conditions' => ['CommunitiesLikes.user_id' => $this->Auth->User('id')]])->contain(['Communities']))->toArray();
+					$myResponse = [];
+					$cntResp=1;
+					$cntLikes=0;
+					$selectListquery =  $this->CommunitiesResponses->find('list')
+->select(['community_id'])
+        ->where([ 'user_id' => $this->Auth->User('id')])
+        ->toArray();
+					foreach($allPosts  as $value){
+				
+						if(isset($selectListquery[$value->community_id]))
+						$cntLikes++;
+					
+						$myResponse[$value->community_id]=['details'=>$value['community']->details,'subject'=>$value['community']->subject,'community_id'=>$value->community_id,'countResponse'=>$cntResp,'countLikes'=>$cntLikes];
+						$cntResp++;
+						
+					}
+					//$allPostsitems = $allPosts->items;
+					//pr($myResponse);die;
+        $this->set(compact('myResponse'));
 	}
 	
     public function add()
@@ -152,37 +171,29 @@ $query->select([
     }
 	
 	// add community post like 
-	 public function addlike()
+	 public function addlike($CommunityId)
     {
 		$this->set('errorMsg','');
-        $community = $this->Communities->newEntity();
 
 		// Data now looks like
-        if ($this->request->is('post')) {
-			$postedData = $this->request->data;
+        if (!empty($CommunityId)) {
+			$articlesTable = TableRegistry::get('CommunitiesLikes');
+$article = $articlesTable->newEntity();
 
-			//pr($postedData);die;
-			$community = $this->Communities->patchEntity($community, $postedData);
-			$community->user_id = $this->Auth->User('id');
-			//pr($community);die;
-			if ($this->Communities->save($community)) {
-				$this->Flash->success(__('Your community details has been saved.'));
-				return $this->redirect(['action' => 'view']);
-			}
-				
-			$errdata='';
-			if(count($community->errors())>0){
-				foreach($community->errors() as $ind =>$value){
-					$errdata .='<br/>';//pr($value);
-					echo $errdata .= implode(",",array_values($value));
-				}	
-				$this->set('errorMsg',$errdata);//pr($community->errors());die;
-			}		
-			$this->Flash->error(__('Unable to add your community.'));		
-		}
+$article->user_id = $this->Auth->User('id');
+$article->community_id = $CommunityId;
+$article->liked = '1';
 
-        $this->set('community', $community);
-    }
+if ($articlesTable->save($article)) {
+    // The $article entity contains the id now
+   $id = $article->id;
+   $this->Flash->success(__('Your had liked this post .'));
+}
+
+				return $this->redirect(['action' => 'view']);	
+}
+
+}
 
 	public function response($id)
 	{

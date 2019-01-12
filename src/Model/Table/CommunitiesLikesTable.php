@@ -1,21 +1,21 @@
 <?php
-// src/Model/Table/CommunitiesTable.php
+// src/Model/Table/CommunitiesLikesTable.php
 namespace App\Model\Table;
 
 
-use App\Model\Entity\Policy;
+use App\Model\Entity\CommunityLike;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-class CommunitiesTable extends Table
+class CommunitiesLikesTable extends Table
 {
     public function initialize(array $config)
     {
         $this->addBehavior('Timestamp');
-		 $this->hasMany('CommunitiesResponses');
-		 $this->hasMany('CommunitiesLikes');
+						 $this->belongsTo('Communities');
+
     }
 	
 	public function isOwnedBy($articleId, $userId)
@@ -24,9 +24,8 @@ class CommunitiesTable extends Table
 	}
 	
 	public function validationDefault(Validator $validator){
-		 $validator->requirePresence('subject','create')
-					 ->notEmpty('subject','You must enter Subject.')
-					->notEmpty('details','Please, enter Details');
+		 $validator->requirePresence('response','create')
+					 ->notEmpty('response','You must enter Response.');
 					return $validator;																		
 	}
 }
