@@ -204,7 +204,11 @@ if ($articlesTable->save($article)) {
 		}//die;
 		
 		$community = $this->Communities->findById($id)->firstOrFail();
-				
+		$numRowsLiked = $this->CommunitiesLikes->find()->where(['user_id'=>$this->Auth->User('id'),'community_id'=>$id])->count();
+		$numRowsResponses = $this->CommunitiesResponses->find()->where(['user_id'=>$this->Auth->User('id'),'community_id'=>$id])->count();
+		$this->set('numRowsLiked',$numRowsLiked);
+		$this->set('numRowsResponses',$numRowsResponses);
+		//pr($numRows);die;
 		if ($this->request->is(['post', 'put'])) {
 			$community = $this->Communities->patchEntity($community, $postedData);
 			$community->user_id = $this->Auth->User('id');
