@@ -9,7 +9,7 @@
 			
 		</div>
 	  </div>
-	<h3>View All Posts<span style="font-size:15px;text-align:right;width:100%;color:red;"><?php if(isset($errorMsg)){ echo  $errorMsg;} ?></span></h3>
+	<h3>My Responses<span style="font-size:15px;text-align:right;width:100%;color:red;"><?php if(isset($errorMsg)){ echo  $errorMsg;} ?></span></h3>
 	  <!--View All Posts table -->
 	  			                <div class="panel-heading" style="color:green;font-size:15px;" ><?php echo  $this->Flash->render() ?></div>
 
@@ -29,15 +29,16 @@
 			  
 			<?php 
 			$sNo = 1;
-			foreach ($allPosts as $communityPost):
+			foreach ($myResponse as $communityPost):
 			?>
 				<tr>
 				  <td><?php echo $sNo;?></td>
-				  <td><?php echo $communityPost->subject;?></td>
-				  <td><?php echo $communityPost->details;?></td>
+				   <td><?php echo $this->Html->link($communityPost['subject'], array('controller' => 'communities', 'action' => 'allresponse', $communityPost['community_id']));?></td>
+
+				  <td><?php echo $communityPost['details'];?></td>
 				  <td><?php echo '';?></td>
 				  <td></td>
-				  <td><?php echo $this->Html->link('Post Respons', array('controller' => 'communities', 'action' => 'response', $communityPost->id));?></td>
+				  <td><?php echo $this->Html->link('Post Response', array('controller' => 'communities', 'action' => 'response', $communityPost['community_id']));?></td>
 				</tr>
 			<?php 
 			$sNo++;

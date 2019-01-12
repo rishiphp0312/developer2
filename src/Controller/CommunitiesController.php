@@ -51,17 +51,24 @@ class CommunitiesController extends AppController
 	
 	public function yourResponses()
 	{
-		$CommunitiesResponses = TableRegistry::get('CommunitiesResponses');
-		//$allPosts = $this->Communities->find('all')->contain(['CommunitiesResponses'])->toArray();
-		
-foreach ($query as $address) {
-//	pr($address);die;
-    //echo $address->user->username;
-}
-
-		$allPosts = $this->Paginator->paginate($CommunitiesResponses->find('all', [
-					'conditions' => ['CommunitiesResponses.user_id' => $this->Auth->User('id'), 'CommunitiesResponses.response !=' => '']]));
-        $this->set(compact('allPosts'));
+		/*
+$query = $this->CommunitiesResponses->find();
+$query->select([
+    'count' => $query->func()->count('community_id'),
+    'user_id' => $this->Auth->User('id')
+])
+->group('community_id')
+->having(['count >' => 1]);*/
+	$allPosts = $this->Paginator->paginate($this->CommunitiesResponses->find('all', [
+					'conditions' => ['CommunitiesResponses.user_id' => $this->Auth->User('id')]])->contain(['Communities']))->toArray();
+					$myResponse = [];
+					foreach($allPosts  as $value){
+				
+						$myResponse[$value->community_id]=['details'=>$value['community']->details,'subject'=>$value['community']->subject,'community_id'=>$value->community_id];
+					}
+					//$allPostsitems = $allPosts->items;
+					//pr($myResponse);die;
+        $this->set(compact('myResponse'));
 	}
 	
 	public function yourLikes()
@@ -142,6 +149,39 @@ foreach ($query as $address) {
 		}
 
         $this->set('CommunitiesResponses', $CommunitiesResponses);
+    }
+	
+	// add community post like 
+	 public function addlike()
+    {
+		$this->set('errorMsg','');
+        $community = $this->Communities->newEntity();
+
+		// Data now looks like
+        if ($this->request->is('post')) {
+			$postedData = $this->request->data;
+
+			//pr($postedData);die;
+			$community = $this->Communities->patchEntity($community, $postedData);
+			$community->user_id = $this->Auth->User('id');
+			//pr($community);die;
+			if ($this->Communities->save($community)) {
+				$this->Flash->success(__('Your community details has been saved.'));
+				return $this->redirect(['action' => 'view']);
+			}
+				
+			$errdata='';
+			if(count($community->errors())>0){
+				foreach($community->errors() as $ind =>$value){
+					$errdata .='<br/>';//pr($value);
+					echo $errdata .= implode(",",array_values($value));
+				}	
+				$this->set('errorMsg',$errdata);//pr($community->errors());die;
+			}		
+			$this->Flash->error(__('Unable to add your community.'));		
+		}
+
+        $this->set('community', $community);
     }
 
 	public function response($id)
