@@ -1,0 +1,134 @@
+*:focus{ outline: none !important; box-shadow: none !important; }
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+    background-color: transparent !important;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+/*bootstrap override*/
+.navbar { border-radius:0; background: #fff; margin-bottom: 0; border-bottom: 1px solid #ddd; box-shadow: 0px 1px 5px #7d7c7a; position: fixed; width: 100%; top:0; z-index: 999;}
+.navbar-nav>li>a { color: #376284; padding-top: 20px; padding-bottom: 20px; margin:0px 5px; line-height: 20px; font-size: 12px; text-transform: uppercase; font-weight: 600;}
+.navbar-toggle { background: #376284 }
+.navbar-toggle .icon-bar { background: #fff; }
+.form-group { width: 100%; display: inline-block; margin-bottom: 15px !important;}
+.navbar-brand { padding:10px; }
+.navbar-brand>img { height: 36px; }
+.custom-scroll { max-height:250px; overflow:auto; width: 100%;}
+.h1, .h2, .h3, h1, h2, h3 { margin-top: 10px; margin-bottom: 15px; }
+.multiselect-container .input-group { width: 97%; position: relative; left: 5px; }
+.table tr th { font-size: 12px; background: #4472c4; color:#fff; }
+.table tr td { font-size: 13px; }
+.panel-default>.panel-heading {font-size: 12px;}
+form label {font-size: 13px;}
+
+/*common css*/
+html { position: relative; min-height: 100%; }
+body{ font-family: 'Open Sans', sans-serif; padding-bottom: 50px; padding-top: 60px; }
+.topBar { width: 100%; display:inline-block; background: #376284; padding:0px 20px; }
+.topBar ul { margin:5px 0px; }
+.topBar ul li { list-style: none; display: inline-block;}
+.topBar ul li a { color:#fff; margin:5px; padding:5px; font-size: 10px; text-transform: uppercase; text-decoration: none; }
+.loginBg {background:url("../img/business-background.jpg") no-repeat center center fixed; background-size: cover;}
+.loginBg:after { content:""; width: 100%; height: 100%; position: fixed; top:0; background: rgba(0,0,0,0.5); z-index: -1; }
+.loginPage .leftArea { position: relative; height: 550px; }
+.loginPage .leftArea .formContainer {position: absolute; width: 50%; left:50%; top:50%; transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%) background:#fff;}
+.loginPage .formContainer .formGroup { margin-bottom: 25px; position: relative;}
+
+.loginPage .rightArea { background: #2196f3; padding:50px; color:#fff;}
+.loginPage .rightArea h2 {  font-size: 35px; font-weight: bold;}
+.loginPage .rightArea p { font-weight: 600; line-height: 22px; }
+
+.loginPage .formGroup input { display: block; width: 100%; height: 46px;
+ background: transparent; border:none; border-bottom: 1px solid #ddd;  color:#fff; transition: border-bottom, box-shadow .25s ease-in-out;}
+.loginPage .formContainer .loginSocial a + a { margin-top: 15px;}
+.loginPage .formContainer .loginButton .btn,
+.loginPage .formContainer .loginSocial .btn { border:1px solid #fff; }
+.loginPage .formContainer .loginSocial .orText { font-size: 30px; margin:30px 0px; text-align: center; color:#fff; }
+.loginPage .formContainer label{
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: text;
+  color: #fff;
+  transform: translateY(18px);
+  transition: transform .25s ease-in-out;
+  transform-origin: 0% 100%;
+}
+.loginPage .formContainer input:focus{
+  border-bottom: 2px solid #2196f3 !important;
+  outline: 1px solid transparent;
+}
+.loginPage .formContainer input:focus + label{
+  transform: translateY(-14px) scale(.8);
+}
+.loginPage .formContainer input::-webkit-input-placeholder,
+.loginPage .formContainer input::-moz-input-placeholder{
+	color: transparent;
+}
+.loginPage .formContainer input::placeholder{
+	color: transparent;
+}
+.loginPage .formContainer input:not(:placeholder-shown){
+  border-bottom: 1px solid #9e9e9e;
+}
+.loginPage .formContainer input:not(:placeholder-shown) + label{
+  transform: translateY(-14px) scale(.8);
+}
+
+/*Left Fixed Nav*/
+.leftMenuArea { background: #d9edf7; border-right: 1px solid #c3d6e0;  padding:0; position: fixed; top:65px; left:0; width: 200px; height: 100%; z-index: 999;}
+.leftMenuArea ul { margin:0; padding:0; }
+.leftMenuArea ul li { list-style: none; width: 100%; float: left; }
+.leftMenuArea ul li + li { border-top: 1px solid #c3d6e0; }
+.leftMenuArea ul li a { color:#376284; font-size: 14px; padding:10px; text-decoration: none; display: block; }
+
+/*Right Area*/
+.rightAreaInner { padding-left: 195px; width: 100%; display: inline-block; }
+
+/*signUp Page*/
+.signUpBox { width: 55%; margin:20px auto 0;  }
+
+/*profileBox*/
+.updateProfileBox {width: 100%; margin:20px auto 0; float: left; margin-left: 10px;}
+.updateProfileBox label { margin-right: 15px; display: block; }
+.updateProfileBox label span { font-size: 10px; }
+.updateProfileBox .form-inline .form-control { width: 100%; }
+.updateProfileBox .form-inline select { width: 100%; }
+.updateProfileBox .btn-group, .updateProfileBox .btn-group-vertical { width: 100%; }
+.updateProfileBox .btn-group-vertical>.btn, .updateProfileBox .btn-group>.btn { width: 100%; text-align: left; }
+.updateProfileBox .btn-group-vertical>.btn, .updateProfileBox .btn-group>.btn .caret { float: right; position: relative; top:9px; }
+.updateProfileBox .btn-primary { margin-bottom: 20px;  }
+.updateProfileBox form label {font-size: 13px;}
+.updateProfileBox .addPolicyBtn { margin-top: 22px; width: 100%; }
+ul.innerHeadButtons { margin:0; padding:0; float: right; }
+ul.innerHeadButtons li {list-style: none; float: left; font-size: 14px; color:#337ab7;}
+ul.innerHeadButtons li + li { margin-left: 20px; }
+
+/*footer*/
+.footer { position:absolute; bottom:0; background: #376284; width: 100%; height: 50px; line-height: 30px; font-size: 13px;  display: inline-block; color:#fff; text-align: center; z-index: 999;}
+.footer p { margin-bottom: 0; }
+.footer ul { margin:0; padding:0; margin-top: 15px; }
+.footer ul li { list-style: none; display: inline-block;}
+.footer ul li + li  { margin-left: 25px; }
+.footer ul li a { color: #fff; margin:0px 5px; line-height: 20px; font-size: 12px; text-transform: uppercase; font-weight: 600; text-decoration: none;}
+
+/*New Login Page*/
+.loginPageNew label { width: 30%; display: inline-block; }
+.loginPageNew .form-control { display: inline-block; float: right; width: 70%; margin-bottom: 15px; }
+.loginPageNew .formGroup { width: 100%; float: left; }
+.loginPageNew .loginButton { width: 100%; float: left; }
+.loginPageNew .btn-block+.btn-block { margin-top: 15px; }
+.loginPageNew .panel { margin-top: 25px; }
+.loginPageNew ul.agentInfo { margin-top: 10px; font-size: 13px; }
+.loginPageNew .leftArea { position: relative; height: 550px; width: 65%; left:15%; transform: translateX(-15%); }
+.loginPageNew .leftArea .formContainerNew { position: absolute; width: 100%; padding:15px; left:50%; top:50%; transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%) background:#fff; margin-top: 70px;}
+.loginPageNew .rightArea { margin-top: 25px; float: right; padding-right: 8%; }
+.loginPageNew .rightArea .agentBox { float: right; }
+.loginPageNew .rightArea .agentBox .userBox { width: 200px; height: 200px; border:1px solid #ddd; margin-bottom: 25px;}
+.loginPageNew .rightArea .agentBox .btnBox { margin-bottom: 10px;}
+.loginPageNew .blogButtons a { display: block; padding:72px 15px; background: #ed7d31; color:#fff; text-align: center; font-weight: 600; margin-top: 25px;}

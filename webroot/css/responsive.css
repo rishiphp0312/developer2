@@ -1,0 +1,28 @@
+@media screen and (max-width: 767px){
+  .navbar-collapse { background: #376284; }
+  .navbar-nav>li>a { color: #fff; padding-top: 10px; padding-bottom: 10px; margin:0; line-height: 10px; font-size: 12px; text-transform: uppercase; font-weight: 600;}
+}
+
+@media screen and (max-width: 480px){
+  .loginPage .leftArea .formContainer { width: 90%; }
+  .topBar ul { display: block; margin-left: 0; padding-left: 0; text-align: center; }
+  .topBar ul li { display: block; }
+  .signUpBox { margin-top:10px; width: 100%;}
+  .footer ul li { display: block;}
+  .footer ul li + li  { margin-left: 0px; }
+  .footer { height: auto; position:  static; }
+  body { padding-bottom: 0; }
+  .leftMenuArea { margin-left: 0; }
+  .updateProfileBox , .signUpBox { margin-left: 0; }
+  .leftMenuArea { position: static; }
+  .rightAreaInner { padding-left: 0; }
+  .loginPageNew .leftArea .formContainerNew { position: static; transform: inherit; padding:0; margin-top: -25px; }
+  .loginPageNew .leftArea { width: 100%; height: auto !important; position: static; transform:inherit; min-height: 380px; }
+  .loginPageNew .rightArea { float: left; }
+  .loginPageNew .leftArea { left:0; }
+  .loginPageNew .rightArea { padding-right: 15px; width: 100%; }
+  .loginPageNew .rightArea .agentBox { width: 100%; float: left; }
+  .loginPageNew .btn-block {margin-bottom: 10px;}
+  .loginPageNew .rightArea .agentBox .userBox { display: block; margin:0 auto; margin-bottom: 15px; }
+  .loginPageNew .rightArea .agentBox .btnBox { display: block; margin:0 auto; margin-bottom: 5px; }
+}

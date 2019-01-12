@@ -1,0 +1,23 @@
+/*common css*/
+.success-msg {padding:10px 15px;
+    border-bottom:1px solid;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;font-size: 16px; font-weight: bold;color:#3c763d;
+	border-color:#d6e9c6
+}
+
+/*Carousel changes my_guru*/
+.item {
+	background: #2196f3;
+	height: 400px;
+	/*text-align: center;*/
+}
+/*Carousel changes my_guru*/
+
+.policydependentFields {
+	
+}
+
+.labelComment {font-size: 10px; }
+
+.updateProfileBox-form-control { width: 50%; }
