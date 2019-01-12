@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2019 at 12:39 PM
+-- Generation Time: Jan 12, 2019 at 02:40 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.0.15
 
@@ -139,12 +139,40 @@ CREATE TABLE `communities` (
 INSERT INTO `communities` (`id`, `user_id`, `subject`, `details`, `published`, `created`, `modified`) VALUES
 (1, 1, 'test subject', 'details 1', 0, NULL, NULL),
 (2, 1, 'test subject', 'details 2', 0, NULL, NULL),
-(3, 1, 'test subject', 'b            ', 0, NULL, NULL),
-(4, 1, 'subject 1', 'details 4', 0, '2018-12-28 06:48:59', '2018-12-28 06:48:59'),
+(3, 2, 'test subject', 'b            ', 0, NULL, NULL),
+(4, 3, 'subject 1', 'details 4', 0, '2018-12-28 06:48:59', '2018-12-28 06:48:59'),
 (5, 1, 'subject 2', 'details 5', 0, '2018-12-28 06:48:59', '2019-01-11 16:22:21'),
 (6, 1, 'jabar', 'jabar1', 0, '2019-01-11 16:20:27', '2019-01-11 16:20:27'),
 (7, 1, 'good', 'good1', 0, '2019-01-12 08:29:18', '2019-01-12 08:29:18'),
-(8, 1, 'jaidev', 'jai 1', 0, '2019-01-12 08:38:51', '2019-01-12 09:24:52');
+(8, 1, 'jaidev', 'jai 1', 0, '2019-01-12 08:38:51', '2019-01-12 09:24:52'),
+(11, 1, 'jabardsdsd', 'dsdsd', 0, '2019-01-12 12:05:43', '2019-01-12 12:05:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `communities_likes`
+--
+
+CREATE TABLE `communities_likes` (
+  `id` int(11) NOT NULL,
+  `community_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `communities_likes`
+--
+
+INSERT INTO `communities_likes` (`id`, `community_id`, `user_id`) VALUES
+(1, 11, 2),
+(2, 11, 1),
+(3, 11, 1),
+(4, 11, 1),
+(5, 8, 1),
+(6, 4, 1),
+(7, 1, 1),
+(8, 2, 1),
+(9, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -171,7 +199,9 @@ INSERT INTO `communities_responses` (`id`, `community_id`, `user_id`, `likes`, `
 (1, 1, 1, 0, 'sdsdsd', 0, '2019-01-12 09:50:59', '2019-01-12 09:50:59'),
 (2, 8, 1, 0, 'cxcxc', 0, '2019-01-12 09:51:03', '2019-01-12 09:51:03'),
 (3, 8, 1, 0, 'xcxxxxxxxxxxxxxxxxx', 0, '2019-01-12 09:51:16', '2019-01-12 09:51:16'),
-(4, 1, 1, 0, 'gggggggggggg', 0, '2019-01-12 09:51:26', '2019-01-12 09:51:26');
+(4, 1, 1, 0, 'gggggggggggg', 0, '2019-01-12 09:51:26', '2019-01-12 09:51:26'),
+(5, 11, 1, 0, 'suno na', 0, '2019-01-12 12:05:54', '2019-01-12 12:05:54'),
+(6, 11, 1, 0, 'great', 0, '2019-01-12 13:35:00', '2019-01-12 13:35:00');
 
 -- --------------------------------------------------------
 
@@ -370,6 +400,12 @@ ALTER TABLE `communities`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `communities_likes`
+--
+ALTER TABLE `communities_likes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `communities_responses`
 --
 ALTER TABLE `communities_responses`
@@ -429,12 +465,17 @@ ALTER TABLE `claim_types`
 -- AUTO_INCREMENT for table `communities`
 --
 ALTER TABLE `communities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `communities_likes`
+--
+ALTER TABLE `communities_likes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `communities_responses`
 --
 ALTER TABLE `communities_responses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `community_response`
 --
