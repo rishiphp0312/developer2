@@ -1,6 +1,31 @@
 <!-- File: src/Template/Communities/response.ctp -->
 <script>
 $(function() {
+
+$('#linkforLikeId').click(function(event) { 
+    event.preventDefault(); 
+	var comId = $("#comId").val();
+	//alert(comId);
+	$.ajax({
+	  type: "GET",
+	  url: "/communities/addlike/"+comId,
+	  url: '<?php echo $this->Url->build([
+    "controller" => "Communities",
+    "action" => "addlike",
+    $community->id,
+]);
+?>',
+	  //data: comId,
+	  cache: false,
+	  success: function(data){
+	  alert('You Liked It');
+		 $("#resultarea").text(data);
+		 $("#linkforLikeId").remove();
+	  }
+	});
+    return false; // for good measure
+});
+
 	// validate CommunityResponse form on submit
 	$("#CommunityResponse").validate({
 		rules: {
@@ -29,23 +54,31 @@ $(function() {
 		   <h3>User Respond</h3>
             <div class="panel panel-default">
 			                <div class="panel-heading" style="color:green;font-size:15px;" ><?php echo  $this->Flash->render() ?></div>
-			                <div style="color:green;font-size:15px;text-align:right;" ><span style="color:green;text-align:right;">
-		  <?php
-					if($numRowsLiked>0)
-					echo "You Liked It";
+			                <div style="color:green;font-size:15px;text-align:right;" >
+							<!-- <a href="#" id="linkforLikeId">Like It </a> -->
+							<span style="color:green;text-align:right;" >
+		  
+					<?php
+		  
+						if($numRowsLiked>0)
+							echo "You Liked It";
 					else
-				  echo $this->Html->link('Like It', array('controller' => 'communities', 'action' => 'addlike', $community->id));?>
+				  echo $this->Html->link('Like It', array('controller' => 'communities', 'action' => 'addlike', $community->id),
+				  
+				      ['id'=>'linkforLikeId']
+
+				  );?>
 
 				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
 
               <div class="panel-body">
 			<?php echo $this->Form->create('', ['id'=>'CommunityResponse', 'url' => ['action' => 'addresponse']]);?>
-              <div class="form-group">
+              <div class="form-group"><input type="text" id="comId" value="<?php echo $community->id;?>">
                 <label class="control-label col-sm-3" for="email">Subject:</label>
                 <div class="col-sm-9 col-md-9 col-lg-9">
                   	<?php echo $community->subject;?>
 				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				  </br>(Total Like = <?php echo $numRowsLiked;?>)							
+				  </br>(Total Like = <span id="resultarea" ><?php echo $numRowsLiked;?>)</span>							
 				  				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 				  (Total Reply = <?php echo $numRowsResponses;?>)

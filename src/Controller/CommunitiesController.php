@@ -224,26 +224,34 @@ class CommunitiesController extends AppController
 	// add community post like 
 	 public function addlike($CommunityId)
     {
-		$this->set('errorMsg','');
+ $this->loadComponent('RequestHandler');
+
+	$this->autoRender = false;
 
 		// Data now looks like
-        if (!empty($CommunityId)) {
-			$articlesTable = TableRegistry::get('CommunitiesLikes');
-$article = $articlesTable->newEntity();
+        $this->set('errorMsg','');
+		
+		if (!empty($CommunityId)) {
+			$numRowsCommunityId = $this->Communities->find()->where(['id'=>$CommunityId])->count();
+			if($numRowsCommunityId >0){
+			$CommunitiesLikesTable = TableRegistry::get('CommunitiesLikes');
+			$article = $CommunitiesLikesTable->newEntity();
 
-$article->user_id = $this->Auth->User('id');
-$article->community_id = $CommunityId;
-$article->liked = '1';
+			$article->user_id = $this->Auth->User('id');
+			$article->community_id = $CommunityId;
+		    $article->status = '1';
 
-if ($articlesTable->save($article)) {
-    // The $article entity contains the id now
-   $id = $article->id;
-   $this->Flash->success(__('Your had liked this post .'));
-}
+			if ($CommunitiesLikesTable->save($article)) {
+				// The $article entity contains the id now
+			   $id = $article->id;
+			   echo $numRowsCommunitiesLikes = $this->CommunitiesLikes->find()->where(['community_id'=>$CommunityId])->count();
+			
+				//  $this->Flash->success(__('Your had liked this post .'));
+			}
 
-				return $this->redirect(['action' => 'view']);	
-}
-
+			}
+		}
+		exit;
 }
 
 	public function response($id)
@@ -259,6 +267,7 @@ if ($articlesTable->save($article)) {
 		$numRowsResponses = $this->CommunitiesResponses->find()->where(['user_id'=>$this->Auth->User('id'),'community_id'=>$id])->count();
 		$this->set('numRowsLiked',$numRowsLiked);
 		$this->set('numRowsResponses',$numRowsResponses);
+
 		//pr($numRows);die;
 		if ($this->request->is(['post', 'put'])) {
 			$community = $this->Communities->patchEntity($community, $postedData);
