@@ -60,18 +60,46 @@ class CommunitiesController extends AppController
 					$myResponse = [];
 					$cntResp=1;
 					$cntLikes=0;
-					$selectListquery =  $this->CommunitiesLikes->find('list')
-->select(['community_id'])
-        ->where([ 'user_id' => $this->Auth->User('id')])
-        ->toArray();
-					foreach($allPosts  as $value){
-				
-						if(isset($selectListquery[$value->community_id]))
-						$cntLikes++;
+					$selectListquery =  $this->CommunitiesResponses->find('list', [
+        'keyField' => 'id',
+        'valueField' => 'community_id'
+    ])->toArray();
 					
-						$myResponse[$value->community_id]=['details'=>$value['community']->details,'subject'=>$value['community']->subject,'community_id'=>$value->community_id,'countResponse'=>$cntResp,'countLikes'=>$cntLikes];
-						$cntResp++;
+		$totResps=[];				//	pr($selectListquery);die;
+		$totLikes=[];				//	pr($selectListquery);die;
+
+		
+					
+					
+					$selectListqueryLikes = $this->CommunitiesLikes
+    ->find('list', [
+        'keyField' => 'id',
+        'valueField' => 'community_id'
+    ])
+        ->toArray();
+		$totResps=[];	
+
+					
+		$totLikes=[];
+		//	pr($selectListquery);die;
+		
+					foreach($selectListquery  as $id => $community_id){
+						$totResps[$community_id][$id]=$id;
+					}
+					foreach($selectListqueryLikes  as $id => $community_id){
+						$totLikes[$community_id][$id]=$id;
+					}
+		$countResponse = $countLikes =0;
+					
+					foreach($allPosts  as $value){
+						if(isset($totResps[$value->community_id]))
+							$countResponse = count($totResps[$value->community_id]);
+						if(isset($totLikes[$value->community_id]))
+							$countLikes = count($totLikes[$value->community_id]);
+					
+						$myResponse[$value->community_id]=['details'=>$value['community']->details,'subject'=>$value['community']->subject,'community_id'=>$value->community_id,'countResponse'=>$countResponse,'countLikes'=>$countLikes];
 						
+							
 					}
 					//$allPostsitems = $allPosts->items;
 					//pr($myResponse);die;
@@ -83,20 +111,43 @@ class CommunitiesController extends AppController
 		$allPosts = $this->Paginator->paginate($this->CommunitiesLikes->find('all', [
 					'conditions' => ['CommunitiesLikes.user_id' => $this->Auth->User('id')]])->contain(['Communities']))->toArray();
 					$myResponse = [];
-					$cntResp=1;
-					$cntLikes=0;
-					$selectListquery =  $this->CommunitiesResponses->find('list')
-->select(['community_id'])
-        ->where([ 'user_id' => $this->Auth->User('id')])
-        ->toArray();
-					foreach($allPosts  as $value){
-				
-						if(isset($selectListquery[$value->community_id]))
-						$cntLikes++;
+					$cntResp=[];
 					
-						$myResponse[$value->community_id]=['details'=>$value['community']->details,'subject'=>$value['community']->subject,'community_id'=>$value->community_id,'countResponse'=>$cntResp,'countLikes'=>$cntLikes];
-						$cntResp++;
-						
+					$selectListquery = $this->CommunitiesResponses
+    ->find('list', [
+        'keyField' => 'id',
+        'valueField' => 'community_id'
+    ])
+        ->toArray();
+					
+					$selectListqueryLikes = $this->CommunitiesLikes
+    ->find('list', [
+        'keyField' => 'id',
+        'valueField' => 'community_id'
+    ])
+        ->toArray();
+		$totResps=[];	
+
+					
+		$totLikes=[];
+		//	pr($selectListquery);die;
+		
+					foreach($selectListquery  as $id => $community_id){
+						$totResps[$community_id][$id]=$id;
+					}
+					foreach($selectListqueryLikes  as $id => $community_id){
+						$totLikes[$community_id][$id]=$id;
+					}
+					$countResponse = $countLikes =0;
+					foreach($allPosts  as $value){
+						if(isset($totResps[$value->community_id]))
+							$countResponse = count($totResps[$value->community_id]);
+						if(isset($totLikes[$value->community_id]))
+							$countLikes = count($totLikes[$value->community_id]);
+					
+						$myResponse[$value->community_id]=['details'=>$value['community']->details,'subject'=>$value['community']->subject,'community_id'=>$value->community_id,'countResponse'=>$countResponse,'countLikes'=>$countLikes];
+							//	pr($totResps[$value->community_id]);
+						//die;
 					}
 					//$allPostsitems = $allPosts->items;
 					//pr($myResponse);die;

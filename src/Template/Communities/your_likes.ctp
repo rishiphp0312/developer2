@@ -9,7 +9,7 @@
 			
 		</div>
 	  </div>
-	<h3>View All Posts<span style="font-size:15px;text-align:right;width:100%;color:red;"><?php if(isset($errorMsg)){ echo  $errorMsg;} ?></span></h3>
+	<h3>My Likes<span style="font-size:15px;text-align:right;width:100%;color:red;"><?php if(isset($errorMsg)){ echo  $errorMsg;} ?></span></h3>
 	  <!--View All Posts table -->
 		  <div class="table-responsvie">
 			<table class="table table-bordered">
@@ -31,7 +31,8 @@
 			?>
 				<tr>
 				  <td><?php echo $sNo;?></td>
-				  <td><?php echo $communityPost['subject'];?></td>
+				   <td><?php echo $this->Html->link($communityPost['subject'], array('controller' => 'communities', 'action' => 'allresponse', $communityPost['community_id']));?></td>
+
 				  <td><?php echo $communityPost['details'];?></td>
 				  <td><?php echo $communityPost['countLikes'];?></td>
 				  				  <td><?php echo $communityPost['countResponse'];?></td>
