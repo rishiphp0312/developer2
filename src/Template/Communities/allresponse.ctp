@@ -1,28 +1,19 @@
-<!-- File: src/Template/Communities/response.ctp -->
+<!-- File: src/Template/Communities/allresponse.ctp -->
 
-		<div class="col-md-10 rightAreaInner">
-           <div class="signUpBox">
 		   
-		   <div class="row">
-			<div class="col-md-12">
-			  <?php 
-				echo $this->element('communityTop');
-			?>
-			
-			</div>
-		  </div>
+		  
 		   
-		   <h3>User Responses</h3>
-            <div class="panel panel-default">
+            <div class="panel panel-default">		   <h3>User Responses</h3>
+
 			                <div class="panel-heading" style="color:green;font-size:15px;" ><?php echo  $this->Flash->render() ?></div>
 
               <div class="panel-body">
-              <div class="form-group">
+              <!--<div class="form-group">
                 <label class="control-label col-sm-3" for="email">Subject:</label>
                 <div class="col-sm-9 col-md-9 col-lg-9">
                   	<?php 
-					if(isset($allPostsResponse[0]->subject))
-					echo $allPostsResponse[0]->subject;?>
+					//if(isset($allPostsResponse[0]->subject))
+					//echo $allPostsResponse[0]->subject;?>
 				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
@@ -31,11 +22,12 @@
                 <label class="control-label col-sm-3" for="email">Details:</label>
                 <div class="col-sm-9 col-md-9 col-lg-9">
 					<?php  
-										if(isset($allPostsResponse[0]->details))
+								//		if(isset($allPostsResponse[0]->details))
 
-					echo $allPostsResponse[0]->details;?>
+					//echo $allPostsResponse[0]->details;
+					?>
                 </div>
-              </div>
+              </div>-->
               <div class="form-group">
                 <label class="control-label col-sm-3" for="email">Replies:</label>
                 <div class="col-sm-9 col-md-9 col-lg-9">
@@ -59,5 +51,3 @@
               </div>
 			</div>
             </div>
-		 </div>
-         </div>

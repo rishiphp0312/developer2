@@ -28,10 +28,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css('calendarstyle') ?>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <?= $this->Html->css('responsive') ?>
-    <?= $this->Html->script(['jquery-3.3.1.min','bootstrap.min','bootstrap-multiselect','custom','jquery-ui','jquery.validate']); ?>
+	    <?= $this->Html->script(['https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js']); ?>
+
+    <?= $this->Html->script(['bootstrap.min','bootstrap-multiselect','custom','jquery-ui','jquery.validate']); ?>
+    <?= $this->Html->script(['https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js']); ?>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 	<?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
+	
+    <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css') ?>
 </head>
 
 <style>

@@ -24,6 +24,7 @@ class CommunitiesController extends AppController
 				 //TableRegistry::get('CommunitiesResponses');
 		$this->loadModel('CommunitiesResponses');
 		$this->loadModel('CommunitiesLikes');
+ $this->loadComponent('RequestHandler');
 
         //$this->viewBuilder()->helpers(['MyHelper']);
 
@@ -33,6 +34,7 @@ class CommunitiesController extends AppController
 	
 	public function beforeFilter(Event $event) {
 		//parent::beforeFilter($event);
+		
 		if($this->Auth->User('id')){
 			$this->Auth->allow();
 		}
@@ -224,7 +226,6 @@ class CommunitiesController extends AppController
 	// add community post like 
 	 public function addlike($CommunityId)
     {
- $this->loadComponent('RequestHandler');
 
 	$this->autoRender = false;
 
@@ -256,6 +257,9 @@ class CommunitiesController extends AppController
 
 	public function response($id)
 	{
+		
+		//echo $id;
+	//	die;
 		$postedData = $this->request->data;
 
 		if(empty($id)){
@@ -288,18 +292,19 @@ class CommunitiesController extends AppController
 			$this->Flash->error(__('Unable to response.'));
 		}									
 		$this->set('community', $community);
+		//exit;
 	}
 	
 	
 	public function allresponse($communityId)
 	{
 		
-
-		$allPostsResponse =[];
+		//Configure::write('debug', 0);
+		$this->viewBuilder()->layout(false);
 		if(!empty($communityId)){
 			$allPostsResponse = $this->Communities->find('all',[
 					'conditions' => ['Communities.id' => $communityId]])->contain(['CommunitiesResponses'])->toArray();
-		//	$allPostsResponse = $this->CommunitiesResponses->find('all',[
+			//	$allPostsResponse = $this->CommunitiesResponses->find('all',[
 			//		'conditions' => ['CommunitiesResponses.community_id' => $communityId]])->contain(['Communities'])->toArray();
 
 		}		//pr($allPostsResponse);die;
